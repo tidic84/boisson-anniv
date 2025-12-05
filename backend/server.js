@@ -30,14 +30,14 @@ app.post('/api/orders', async (req, res) => {
       return res.status(400).json({ error: 'Le nom de la boisson est requis' });
     }
 
-    const [result] = await db.query(
-      'INSERT INTO orders (drink_name, drink_variant, quantity) VALUES (?, ?, 1)',
+    const result = await db.query(
+      'INSERT INTO orders (drink_name, drink_variant, quantity) VALUES ($1, $2, 1) RETURNING id',
       [drink_name, drink_variant || null]
     );
 
     res.status(201).json({
       message: 'Commande créée avec succès',
-      orderId: result.insertId
+      orderId: result.rows[0].id
     });
   } catch (error) {
     console.error('Erreur lors de la création de la commande:', error);
@@ -57,7 +57,7 @@ app.post('/api/orders/batch', async (req, res) => {
     // Insérer toutes les commandes
     const insertPromises = orders.map(order => {
       return db.query(
-        'INSERT INTO orders (drink_name, drink_variant, quantity) VALUES (?, ?, 1)',
+        'INSERT INTO orders (drink_name, drink_variant, quantity) VALUES ($1, $2, 1)',
         [order.drink_name, order.drink_variant || null]
       );
     });
@@ -77,10 +77,10 @@ app.post('/api/orders/batch', async (req, res) => {
 // GET - Récupérer toutes les commandes (pour l'admin)
 app.get('/api/orders', async (req, res) => {
   try {
-    const [rows] = await db.query(
+    const result = await db.query(
       'SELECT * FROM orders ORDER BY created_at DESC'
     );
-    res.json(rows);
+    res.json(result.rows);
   } catch (error) {
     console.error('Erreur lors de la récupération des commandes:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la récupération des commandes' });
@@ -90,16 +90,16 @@ app.get('/api/orders', async (req, res) => {
 // GET - Récupérer les statistiques (totaux par boisson)
 app.get('/api/orders/stats', async (req, res) => {
   try {
-    const [rows] = await db.query(`
+    const result = await db.query(`
       SELECT
         drink_name,
         drink_variant,
-        COUNT(*) as total
+        COUNT(*)::int as total
       FROM orders
       GROUP BY drink_name, drink_variant
       ORDER BY drink_name, drink_variant
     `);
-    res.json(rows);
+    res.json(result.rows);
   } catch (error) {
     console.error('Erreur lors de la récupération des statistiques:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la récupération des statistiques' });
@@ -109,7 +109,7 @@ app.get('/api/orders/stats', async (req, res) => {
 // DELETE - Réinitialiser toutes les commandes (pour l'admin)
 app.delete('/api/orders/reset', async (req, res) => {
   try {
-    await db.query('TRUNCATE TABLE orders');
+    await db.query('TRUNCATE TABLE orders RESTART IDENTITY');
     res.json({ message: 'Toutes les commandes ont été supprimées' });
   } catch (error) {
     console.error('Erreur lors de la réinitialisation:', error);

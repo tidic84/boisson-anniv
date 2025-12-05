@@ -6,7 +6,7 @@ import './styles/App.css';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/anniv-emma">
       <div className="app-container">
         <Routes>
           <Route path="/" element={<OrderForm />} />

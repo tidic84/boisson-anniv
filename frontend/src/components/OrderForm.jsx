@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import config from '../config';
 
 const OrderForm = () => {
   const [selectedDrinks, setSelectedDrinks] = useState({});
@@ -75,7 +76,7 @@ const OrderForm = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post('/api/orders/batch', { orders });
+      await axios.post(`${config.apiBaseUrl}/orders/batch`, { orders });
 
       setMessage({
         type: 'success',

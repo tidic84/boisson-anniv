@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../config';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState([]);
@@ -9,7 +10,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get('/api/orders/stats');
+      const response = await axios.get(`${config.apiBaseUrl}/orders/stats`);
       setStats(response.data);
       setLoading(false);
     } catch (error) {
@@ -44,7 +45,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      await axios.delete('/api/orders/reset');
+      await axios.delete(`${config.apiBaseUrl}/orders/reset`);
       setStats([]);
       setMessage({
         type: 'success',

@@ -109,8 +109,18 @@ app.get('/api/orders/stats', async (req, res) => {
 // DELETE - Réinitialiser toutes les commandes (pour l'admin)
 app.delete('/api/orders/reset', async (req, res) => {
   try {
-    await db.query('TRUNCATE TABLE orders RESTART IDENTITY');
-    res.json({ message: 'Toutes les commandes ont été supprimées' });
+    // Utiliser DELETE au lieu de TRUNCATE car TRUNCATE nécessite des permissions spéciales
+    const result = await db.query('DELETE FROM orders');
+
+    // Tenter de réinitialiser la séquence (peut échouer selon les permissions)
+    try {
+      await db.query('ALTER SEQUENCE orders_id_seq RESTART WITH 1');
+    } catch (seqError) {
+      console.warn('Impossible de réinitialiser la séquence (permissions insuffisantes):', seqError.message);
+      // On continue quand même, ce n'est pas critique
+    }
+
+    res.json({ message: 'Toutes les commandes ont été supprimées', deletedCount: result.rowCount });
   } catch (error) {
     console.error('Erreur lors de la réinitialisation:', error);
     res.status(500).json({ error: 'Erreur serveur lors de la réinitialisation' });

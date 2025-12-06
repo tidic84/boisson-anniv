@@ -21,10 +21,38 @@
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, #F5E6D3 0%, #E8D5BE 100%);
+  background:
+    radial-gradient(ellipse 8px 12px at 20% 30%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 10px 8px at 60% 20%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 12px 10px at 40% 60%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 7px 9px at 70% 70%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 9px 11px at 25% 80%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 11px 9px at 80% 40%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 8px 10px at 15% 50%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 10px 12px at 85% 15%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    linear-gradient(135deg, #F5E6D3 0%, #E8D5BE 100%);
+  background-size: 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 80px 80px, 100% 100%;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
   min-height: 100vh;
   color: var(--color-primary);
   overflow-x: hidden;
+}
+
+/* ============================================
+   Pattern Léopard - Classe utilitaire
+   ============================================ */
+.leopard-pattern {
+  background:
+    radial-gradient(ellipse 8px 12px at 20% 30%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 10px 8px at 60% 20%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 12px 10px at 40% 60%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 7px 9px at 70% 70%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 9px 11px at 25% 80%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 11px 9px at 80% 40%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 8px 10px at 15% 50%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    radial-gradient(ellipse 10px 12px at 85% 15%, #8B6F47 0%, #8B6F47 40%, transparent 50%),
+    var(--color-leopard);
+  background-size: 80px 80px;
 }
 
 /* ============================================
@@ -90,13 +118,16 @@ body {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle at 20% 30%, var(--color-leopard-dark) 15%, transparent 15%),
-    radial-gradient(circle at 60% 20%, var(--color-leopard-dark) 12%, transparent 12%),
-    radial-gradient(circle at 40% 60%, var(--color-leopard-dark) 18%, transparent 18%),
-    radial-gradient(circle at 70% 70%, var(--color-leopard-dark) 10%, transparent 10%),
-    radial-gradient(circle at 25% 80%, var(--color-leopard-dark) 14%, transparent 14%),
-    radial-gradient(circle at 80% 40%, var(--color-leopard-dark) 16%, transparent 16%);
-  opacity: 0.6;
+    radial-gradient(ellipse 12px 8px at 20% 30%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 10px 14px at 60% 20%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 14px 10px at 40% 60%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 8px 12px at 70% 70%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 11px 9px at 25% 80%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 13px 11px at 80% 40%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 9px 13px at 15% 50%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 12px 10px at 85% 15%, #3D2817 0%, #3D2817 45%, transparent 50%),
+    radial-gradient(ellipse 10px 11px at 50% 35%, #3D2817 0%, #3D2817 45%, transparent 50%);
+  opacity: 0.7;
 }
 
 .leopard-heart.top-right {

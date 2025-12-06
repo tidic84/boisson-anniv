@@ -189,6 +189,10 @@ body {
   margin-bottom: 8px;
 }
 
+.drink-label.bold {
+  font-weight: 700;
+}
+
 .drink-variants {
   display: flex;
   flex-direction: column;

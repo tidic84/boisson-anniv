@@ -19,23 +19,22 @@ const OrderForm = () => {
     },
     {
       name: 'Latte Macchiato',
-      variants: ['nature', 'vanille', 'caramel']
-    },
-    {
-      name: 'Latte Macchiato spéculos',
-      variants: null
+      variants: ['nature', 'vanille', 'caramel', 'speculos']
     },
     {
       name: 'Frappuccino Cookie Cream',
-      variants: null
+      variants: null,
+      bold: true
     },
     {
       name: 'Thé',
-      variants: null
+      variants: null,
+      bold: true
     },
     {
       name: 'Chocolat chaud',
-      variants: null
+      variants: null,
+      bold: true
     }
   ];
 
@@ -147,7 +146,7 @@ const OrderForm = () => {
                       checked={selectedDrinks[drink.name] || false}
                       onChange={() => handleCheckboxChange(drink.name)}
                     />
-                    <label htmlFor={drink.name} className="drink-label">
+                    <label htmlFor={drink.name} className={`drink-label${drink.bold ? ' bold' : ''}`}>
                       {drink.name}
                     </label>
                   </div>
